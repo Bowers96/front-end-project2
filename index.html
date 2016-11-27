@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title>NutriCheck</title>
+      <title>TOPICAL</title>
 
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="stylesheet" type="text/css" href="assets/styles/style.css">
+      <link rel="stylesheet" type="text/css" href="assets/styles/index.scss">
+      <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link href="https://fonts.googleapis.com/css?family=Paytone+One" rel="stylesheet">
       <script src="dependencies.js" type="text/javascript" charset="utf-8" defer></script>
       <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
 
+    <link rel="shortcut icon" href="http://cdn1-www.wholesomebabyfood.momtastic.com/assets/uploads/2015/04/tomato.jpg" />
+
     <body class="container-fluid">
 
       <div class="header">
-        <h1>NutriCheck</h1>
+        <h1>TOPICAL</h1>
+
+        <div class="dropdown">
+          <img src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png" width="30px">
+            <ul class="dropdown-menu">
+              <li><a href="#">Sign Up</a></li>
+              <li><a href="#">Sign In</a></li>
+              <li><a href="#">Change Password</a></li>
+              <li><a href="#">Sign Out</a></li>
+            </ul>
+        </div>
       </div>
 
       <div class="main">
-        <h3>Check the Nutrition facts</h3>
-
-        <div class="list"></div>
-
-        <form class="form">
-          <div class="form-container">
-            <input id="todo" type="text" class="form-input" placeholder="Add item">
+        <div class="side-content">
+          <div class="form-info">
+            <h3>Make a new Group!</h3>
+            <p>Have something to sell? Make a group for items like yours or
+              post to a group that has items like the one you want to sell.</p>
           </div>
 
-          <button type="submit" class="btn">+</button>
-        </form>
+          <form>
+            <input class="group-input-one" type="text" name="group-title" value="Title"><br>
+            <input class="group-input" type="text" name="group-category" value="Category"><br>
+            <input class="group-input" type="text" name="group-description" value="Description"><br>
+            <a class="btn" href="#"><i>+</i></a>
+          </form>
+        </div>
       </div>
 
+      <div class="footer">
+        <p>Site by Brandon Bowers</p>
+      </div>
+
+
+
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/1.4.0/annyang.min.js"></script>
     <script src='assets/scripts/index.js'></script>
     </body>
 </html>

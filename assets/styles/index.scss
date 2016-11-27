@@ -1,0 +1,119 @@
+body {
+  background: tomato;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  background: rgba(255,255,255,0.80);
+  box-shadow: 0 2px 2px rgba(0,0,0,.15);
+  position: fixed;
+  width: 100%;
+  margin-left: -15px
+}
+
+h1 {
+  font-family: 'Bangers', cursive;
+  text-align: center;
+  color: black;
+  font-size: 50px;
+}
+
+.dropdown {
+  float: left;
+  margin-top: -52px;
+  margin-left: 50px;
+}
+
+.dropdown-menu {
+  border-radius:0px;
+  box-shadow:none;
+  border:none;
+  min-width: 200px;
+  top: 28px;
+  background-color: #000;
+}
+
+.dropdown-menu li {
+  font-size: 20px;
+  font-family: 'Bangers', cursive;
+  margin-left: 0;
+  float:none;
+}
+
+.dropdown-menu li a {
+  color:#fff;
+  padding: 5px 0;
+  text-align: center;
+}
+
+.dropdown-menu li a:hover {
+  background: rgba(255,255,255,0.80);
+  color:#000;
+}
+
+.side-content {
+  margin-top: 150px;
+  max-width: 400px;
+  height: 500px;
+  background: rgba(255,255,255,0.80);
+}
+
+.form-info {
+  text-align: center;
+  font-family: 'Bangers', cursive;
+  padding-top: 1px;
+}
+
+.btn {
+  background: black;
+  color: white;
+  display: block;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  float: right;
+  margin-right: 22px;
+  padding: 10px;
+  font-size: 20px;
+}
+
+
+.footer {
+  background: rgba(255,255,255,0.80);
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  margin-left: -15px;
+  text-align: center;
+  padding: 10px;
+  font-family: 'Bangers', cursive;
+}
+
+p {
+  margin: 7px;
+}
+
+.group-input-one {
+  margin: 20px 20px 20px 20px;
+  padding: 20px;
+  width: 358px;
+  font-family: 'Bangers', cursive;
+  font-size: 20px;
+}
+
+.group-input {
+  margin: 20px 20px;
+  padding: 20px;
+  width: 358px;
+  font-family: 'Bangers', cursive;
+  font-size: 20px;
+}
+
+.group-input-one:focus {
+  outline: none;
+}
+
+.group-input:focus {
+  outline: none;
+}
