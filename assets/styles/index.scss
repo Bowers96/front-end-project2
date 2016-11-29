@@ -52,6 +52,9 @@ h1 {
   color:#000;
 }
 
+.main {
+  display: flex;
+}
 .side-content {
   margin-top: 150px;
   max-width: 400px;
@@ -116,4 +119,19 @@ p {
 
 .group-input:focus {
   outline: none;
+}
+
+.side-content-right {
+  margin-top: 150px;
+  margin-left: 40px;
+  width: 970px;
+  height: 500px;
+  background: rgba(255,255,255,0.80);
+  float: right;
+}
+
+.contents {
+  font-family: 'Bangers', cursive;
+
+  margin: 10px;
 }
