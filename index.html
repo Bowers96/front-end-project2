@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <title>TOPICAL</title>
+      <title>EVENTZ</title>
 
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" type="text/css" href="assets/styles/index.scss">
@@ -16,32 +16,32 @@
     <body class="container-fluid">
 
       <div class="header">
-        <h1>TOPICAL</h1>
+        <h1>EVENTZ</h1>
 
         <div class="dropdown">
           <img src="https://cdn4.iconfinder.com/data/icons/wirecons-free-vector-icons/32/menu-alt-512.png" width="30px">
             <ul class="dropdown-menu">
-              <li><a href="#">Sign Up</a></li>
-              <li><a href="#">Sign In</a></li>
-              <li><a href="#">Change Password</a></li>
-              <li><a href="#">Sign Out</a></li>
+              <li><a id="auth-one"href="#">Sign Up</a></li>
+              <li><a id="auth-two"href="#">Sign In</a></li>
+              <li><a id="auth-three"href="#">Change Password</a></li>
+              <li><a id="auth-four"href="#">Sign Out</a></li>
             </ul>
         </div>
       </div>
 
 
-      <div class="main">
+      <div class="main frame">
         <div class="side-content">
           <div class="form-info">
-            <h3>Make a new Group!</h3>
-            <p>Have something to sell? Make a group for items like yours or
-              post to a group that has items like the one you want to sell.</p>
+            <h3>Make a new EVENTZ!</h3>
+            <p>Have a cool eventz? Make a eventz post for upcoming events you
+              want to let pople know about</p>
           </div>
 
           <form id="form">
             <input class="group-input-one" id="title" type="text" name="group-title" value="Title"><br>
-            <input class="group-input" id="category" type="text" name="group-category" value="Category"><br>
-            <input class="group-input" id="description" type="text" name="group-description" value="Description"><br>
+            <input class="group-input" id="category" type="text" name="group-1996-01-25" value="1996-01-25"><br>
+            <input class="group-input" id="description" type="text" name="group-event" value="Short description of event"><br>
             <div class="btn" href="#"><i>+</i></div>
           </form>
         </div>
@@ -49,7 +49,48 @@
         <div class="side-content-right">
 
         </div>
+      </div>
 
+      <div class="sign-up frame">
+
+        <h3 class="header-sign-up">Sign up and see the EVENTZ going on!</h3>
+
+        <form id="formtwo">
+          <input class="input" type="text" name="email" value="email"><br>
+          <input class="input" type="text" name="password" value="password"><br>
+          <input class="input" type="text" name="confirm-password" value="confirm password"><br>
+          <div class="btn-one" href="#"><i>+</i></div>
+        </form>
+      </div>
+
+      <div class="sign-in frame">
+
+        <h3 class="header-sign-in">Sign in You're almost to the EVENTZ!</h3>
+
+        <form id="formtwo">
+          <input class="input" type="text" name="email" value="email"><br>
+          <input class="input" type="text" name="password" value="password"><br>
+          <div class="btn-two" href="#"><i>+</i></div>
+        </form>
+      </div>
+
+      <div class="change-password frame">
+
+        <h3 class="header-change-password">Did somebody see your password? Or
+          maybe you just want to change. Whatever the reason may be, you can
+          do it on EVENTZ!</h3>
+
+        <form id="formtwo">
+          <input class="input" type="text" name="old-password" value="old password"><br>
+          <input class="input" type="text" name="new-password" value="new password"><br>
+          <input class="input" type="text" name="confirm-new-password" value="confirm new password"><br>
+          <div class="btn-three" href="#"><i>+</i></div>
+        </form>
+      </div>
+
+      <div class="sign-out frame">
+        <h3>You have been signed out! Thank you for using EVENTZ, see you next
+          time!</h3>
       </div>
 
       <div class="footer">

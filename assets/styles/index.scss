@@ -77,7 +77,7 @@ h1 {
   border-radius: 50%;
   float: right;
   margin-right: 22px;
-  padding: 10px;
+  padding: 8px;
   font-size: 20px;
 }
 
@@ -128,10 +128,121 @@ p {
   height: 500px;
   background: rgba(255,255,255,0.80);
   float: right;
+  overflow: auto;
+  padding: 19px;
 }
 
 .contents {
   font-family: 'Bangers', cursive;
+  padding: 10px;
+  font-size: 30px;
+  color: white;
+  text-align: center;
+}
 
+.item {
+  float: left;
+  background: rgba(0,0,0,0.80);
   margin: 10px;
+}
+
+.sign-up {
+display: none;
+height: 200px;
+width: 200px;
+margin: 200px auto;
+}
+
+.input {
+  margin-top: 20px;
+  padding: 20px;
+  width: 400px;
+  background: rgba(255,255,255,0.80);
+  font-size: 20px;
+  font-family: 'Bangers', cursive;
+}
+
+.input:focus {
+  outline: none;
+}
+
+#formtwo {
+  margin-left: -95px;
+}
+
+.btn-one {
+      background: black;
+      color: white;
+      display: block;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      float: right;
+      margin-right: -106px;
+      margin-top: 10px;
+      padding: 13px 20px;
+}
+
+.btn-two {
+    background: black;
+    color: white;
+    display: block;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    float: right;
+    margin-right: -106px;
+    margin-top: 10px;
+    padding: 13px 20px;
+}
+
+.btn-three {
+      background: black;
+      color: white;
+      display: block;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      float: right;
+      margin-right: -106px;
+      margin-top: 10px;
+      padding: 13px 20px;
+}
+
+.header-sign-up {
+  font-family: 'Bangers', cursive;
+  text-align: center;
+}
+
+.sign-in {
+  display: none;
+  height: 200px;
+  width: 200px;
+  margin: 200px auto;
+}
+
+.header-sign-in {
+  font-family: 'Bangers', cursive;
+  text-align: center;
+}
+
+.change-password {
+  display: none;
+  height: 200px;
+  width: 200px;
+  margin: 140px auto;
+}
+
+.header-change-password {
+  font-family: 'Bangers', cursive;
+  text-align: center;
+}
+
+.sign-out {
+  font-family: 'Bangers', cursive;
+  display: none;
+  height: 200px;
+  width: 400px;
+  margin: 140px auto;
+  text-align: center;
 }
