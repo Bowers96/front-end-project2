@@ -45,6 +45,7 @@ h1 {
   color:#fff;
   padding: 5px 0;
   text-align: center;
+  cursor: pointer;
 }
 
 .dropdown-menu li a:hover {
@@ -79,6 +80,7 @@ h1 {
   margin-right: 22px;
   padding: 8px;
   font-size: 20px;
+  cursor: pointer;
 }
 
 
@@ -120,6 +122,7 @@ p {
 .group-input:focus {
   outline: none;
 }
+
 
 .side-content-right {
   margin-top: 150px;
@@ -166,7 +169,15 @@ margin: 200px auto;
   outline: none;
 }
 
-#formtwo {
+#sign-up {
+  margin-left: -95px;
+}
+
+#sign-in {
+  margin-left: -95px;
+}
+
+#change-password {
   margin-left: -95px;
 }
 
@@ -181,6 +192,7 @@ margin: 200px auto;
       margin-right: -106px;
       margin-top: 10px;
       padding: 13px 20px;
+      cursor: pointer;
 }
 
 .btn-two {
@@ -194,6 +206,7 @@ margin: 200px auto;
     margin-right: -106px;
     margin-top: 10px;
     padding: 13px 20px;
+    cursor: pointer;
 }
 
 .btn-three {
@@ -207,6 +220,7 @@ margin: 200px auto;
       margin-right: -106px;
       margin-top: 10px;
       padding: 13px 20px;
+      cursor: pointer;
 }
 
 .header-sign-up {
@@ -245,4 +259,19 @@ margin: 200px auto;
   width: 400px;
   margin: 140px auto;
   text-align: center;
+}
+
+.glyphicon {
+  color: white;
+  float: right;
+  margin: 9px;
+}
+
+.item {
+  max-width: 31.1%;
+}
+
+.contents {
+  outline: none;
+  cursor: pointer;
 }

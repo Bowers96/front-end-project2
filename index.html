@@ -11,7 +11,7 @@
       <script src="bundle.js" type="text/javascript" charset="utf-8" defer></script>
     </head>
 
-<link rel="shortcut icon" href="http://cdn1-www.wholesomebabyfood.momtastic.com/assets/uploads/2015/04/tomato.jpg" />
+<link rel="shortcut icon" href="https://c2.staticflickr.com/4/3884/15004369989_9c4a807b77_z.jpg" />
 
     <body class="container-fluid">
 
@@ -39,10 +39,10 @@
           </div>
 
           <form id="form">
-            <input class="group-input-one" id="title" type="text" name="group-title" value="Title"><br>
-            <input class="group-input" id="category" type="text" name="group-1996-01-25" value="1996-01-25"><br>
-            <input class="group-input" id="description" type="text" name="group-event" value="Short description of event"><br>
-            <div class="btn" href="#"><i>+</i></div>
+            <input class="group-input-one" id="title" type="text" name="group-title" placeholder="Title"><br>
+            <input class="group-input" id="date" type="text" name="group-date" placeholder="Date"><br>
+            <input class="group-input" id="description" type="text" name="group-event" placeholder="Short description of event"><br>
+            <button class="btn" type="submit"><i>+</i></button>
           </form>
         </div>
 
@@ -55,11 +55,11 @@
 
         <h3 class="header-sign-up">Sign up and see the EVENTZ going on!</h3>
 
-        <form id="formtwo">
-          <input class="input" type="text" name="email" value="email"><br>
-          <input class="input" type="text" name="password" value="password"><br>
-          <input class="input" type="text" name="confirm-password" value="confirm password"><br>
-          <div class="btn-one" href="#"><i>+</i></div>
+        <form id="sign-up">
+          <input class="input" type="text" name="credentials[email]" placeholder="email"><br>
+          <input class="input" type="text" name="credentials[password]" placeholder="password"><br>
+          <input class="input" type="text" name="credentials[password_confirmation]" placeholder="confirm password"><br>
+          <button type="submit" class="btn-one" href="#"><i>+</i></button>
         </form>
       </div>
 
@@ -67,10 +67,10 @@
 
         <h3 class="header-sign-in">Sign in You're almost to the EVENTZ!</h3>
 
-        <form id="formtwo">
-          <input class="input" type="text" name="email" value="email"><br>
-          <input class="input" type="text" name="password" value="password"><br>
-          <div class="btn-two" href="#"><i>+</i></div>
+        <form id="sign-in">
+          <input class="input" type="text" name="credentials[email]" placeholder="email"><br>
+          <input class="input" type="text" name="credentials[password]" placeholder="password"><br>
+          <button type="submit" class="btn-two" href="#"><i>+</i></button>
         </form>
       </div>
 
@@ -80,11 +80,10 @@
           maybe you just want to change. Whatever the reason may be, you can
           do it on EVENTZ!</h3>
 
-        <form id="formtwo">
-          <input class="input" type="text" name="old-password" value="old password"><br>
-          <input class="input" type="text" name="new-password" value="new password"><br>
-          <input class="input" type="text" name="confirm-new-password" value="confirm new password"><br>
-          <div class="btn-three" href="#"><i>+</i></div>
+        <form id="change-password">
+          <input class="input" type="text" name="passwords[old]" placeholder="old password"><br>
+          <input class="input" type="text" name="passwords[new]" placeholder="new password"><br>
+          <button type="submit" class="btn-three" href="#"><i>+</i></button>
         </form>
       </div>
 
