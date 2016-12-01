@@ -13,11 +13,11 @@ webpackJsonp([0],[
 	__webpack_require__(1);
 
 	// styles
-	__webpack_require__(3);
+	__webpack_require__(10);
 
 	// attach jQuery globally
-	__webpack_require__(7);
-	__webpack_require__(8);
+	__webpack_require__(14);
+	__webpack_require__(15);
 
 /***/ },
 /* 1 */
@@ -25,12 +25,56 @@ webpackJsonp([0],[
 
 	/* WEBPACK VAR INJECTION */(function($) {'use strict';
 
+	__webpack_require__(3);
+
+	var _require = __webpack_require__(5),
+	    addHandlers = _require.addHandlers;
+
+	var _require2 = __webpack_require__(8),
+	    addPostHandlers = _require2.addPostHandlers;
+
 	var main = function main() {
 	  $('img').click(function () {
-	    $('.dropdown-menu').show(500).hide();
+	    $('.dropdown-menu').slideToggle();
 	  });
-	  return false;
+
+	  addHandlers();
+	  addPostHandlers();
 	};
+
+	$("#auth-one").click(function () {
+	  $('.frame').hide();
+	  $('.sign-up').show();
+	  $('.dropdown-menu').hide();
+	});
+
+	$(".btn-one").click(function () {
+	  $('.frame').hide();
+	  $('.sign-in').show();
+	});
+
+	$("#auth-two").click(function () {
+	  $('.frame').hide();
+	  $('.sign-in').show();
+	  $('.dropdown-menu').hide();
+	});
+
+	$(".btn-two").click(function () {
+	  $('.frame').hide();
+	  $('.main').show();
+	});
+
+	$("#auth-three").click(function () {
+	  $('.frame').hide();
+	  $('.change-password').show();
+	  $('.dropdown-menu').hide();
+	});
+
+	$("#auth-four").click(function () {
+	  $('.frame').hide();
+	  $('.sign-out').show();
+	  $('.dropdown-menu').hide();
+	});
 
 	$(document).ready(main);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
@@ -40,13 +84,367 @@ webpackJsonp([0],[
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	var app = __webpack_require__(4);
+
+	var getAllPosts = function getAllPosts() {
+	  return $.ajax({
+	    url: app.host + '/posts',
+	    method: 'GET'
+	  });
+	};
+
+	var submitPost = function submitPost(data) {
+	  return $.ajax({
+	    method: 'POST',
+	    url: app.host + '/posts/',
+	    data: data,
+	    headers: {
+	      Authorization: 'Token token=' + app.user.token
+	    }
+	  });
+	};
+
+	var updatePost = function updatePost(data) {
+	  return $.ajax({
+	    method: 'PATCH',
+	    url: app.host + '/posts/' + id,
+	    headers: {
+	      Authorization: 'Token token=' + app.user.token
+	    },
+	    data: data
+	  });
+	};
+
+	var deletePost = function deletePost(id) {
+	  return $.ajax({
+	    method: 'DELETE',
+	    url: app.host + '/posts/' + id,
+	    headers: {
+	      Authorization: 'Token token=' + app.user.token
+	    }
+	  });
+	};
+
+	module.exports = {
+	  getAllPosts: getAllPosts,
+	  submitPost: submitPost,
+	  updatePost: updatePost,
+	  deletePost: deletePost
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	module.exports = {
+	  host: "http://localhost:4741"
+	};
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	var api = __webpack_require__(6);
+	var ui = __webpack_require__(7);
+	var app = __webpack_require__(4);
+	var getFormFields = __webpack_require__(9);
+
+	var onSignUp = function onSignUp(event) {
+	  event.preventDefault();
+	  var data = getFormFields(event.target);
+	  api.signUp(data).done(ui.success).fail(ui.fail);
+	};
+
+	var onSignIn = function onSignIn(event) {
+	  event.preventDefault();
+	  var data = getFormFields(event.target);
+	  api.signIn(data).done(ui.signInSuccess).fail(ui.fail);
+	};
+
+	var onSignOut = function onSignOut(event) {
+	  event.preventDefault();
+	  var data = getFormFields(event.target);
+	  api.signOut(data).done(ui.signOutSuccess).fail(ui.fail);
+	};
+
+	var onChangePassword = function onChangePassword(event) {
+	  event.preventDefault();
+	  var data = getFormFields(event.target);
+	  api.changePassword(data).done(ui.changePasswordSuccess).fail(ui.fail);
+	};
+
+	var addHandlers = function addHandlers() {
+	  $('#sign-up').on('submit', onSignUp);
+	  $('#sign-in').on('submit', onSignIn);
+	  $('#auth-four').on('click', onSignOut);
+	  $('#change-password').on('submit', onChangePassword);
+	};
+
+	module.exports = {
+	  addHandlers: addHandlers
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	var app = __webpack_require__(4);
+	// const getFormFields = require('../../../lib/get-form-fields.js');
+
+	//authApi.signUp(authUi.success, authUi.failure, data);
+
+	var signUp = function signUp(data) {
+	  console.log(data);
+	  return $.ajax({
+	    url: app.host + '/sign-up/',
+	    method: 'POST',
+	    data: data
+	  });
+	};
+
+	var signIn = function signIn(data) {
+	  console.log(data);
+	  return $.ajax({
+	    url: app.host + '/sign-in/',
+	    method: 'POST',
+	    data: data
+	  });
+	};
+
+	var signOut = function signOut() {
+	  return $.ajax({
+	    method: 'DELETE',
+	    url: app.host + '/sign-out/' + app.user.id,
+	    headers: {
+	      Authorization: 'Token token=' + app.user.token
+	    }
+	  });
+	};
+
+	var changePassword = function changePassword(data) {
+	  return $.ajax({
+	    method: 'PATCH',
+	    url: app.host + '/change-password/' + app.user.id,
+	    headers: {
+	      Authorization: 'Token token=' + app.user.token
+	    },
+	    data: data
+	  });
+	};
+
+	module.exports = {
+	  signUp: signUp,
+	  signIn: signIn,
+	  signOut: signOut,
+	  changePassword: changePassword
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+	//remove signIn and signOut
+
+	var app = __webpack_require__(4);
+	var postsEvents = __webpack_require__(8);
+	window.app = app;
+	//remove me before code-along
+	var signInSuccess = function signInSuccess(data) {
+	  app.user = data.user;
+	  console.log(app);
+	  postsEvents.getItemsAndFill();
+	};
+
+	//remove me before code-along
+	var signOutSuccess = function signOutSuccess() {
+	  app.user = null;
+	  showSignoutMessage();
+	  console.log(app);
+	};
+
+	var changePasswordSuccess = function changePasswordSuccess() {
+	  console.log("Password Successfully Changed.");
+	};
+
+	var success = function success(data) {
+	  app.user = data.user;
+	  console.log(data);
+	};
+
+	var failure = function failure(error) {
+	  console.error(error);
+	};
+
+	var showSignoutMessage = function showSignoutMessage() {
+	  $('.signout-message').fadeIn();
+
+	  setTimeout(function () {
+	    $('.signout-message').fadeOut();
+	  }, 5000);
+	};
+
+	module.exports = {
+	  failure: failure,
+	  success: success,
+	  signInSuccess: signInSuccess,
+	  signOutSuccess: signOutSuccess,
+	  changePasswordSuccess: changePasswordSuccess,
+	  showSignoutMessage: showSignoutMessage
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function($) {'use strict';
+
+	var api = __webpack_require__(3);
+	var app = __webpack_require__(4);
+
+	// Takes raw database items and returns HTML string
+	function translate(item, creating) {
+	  if (app.user.id === item.user_id || creating) {
+	    return '<div data-item=' + item.id + ' class="item">\n      <div><i class=\'glyphicon glyphicon-remove\'></i></div>\n        <div class="contents" contenteditable="true">' + item.title + '</div>\n        <div class="contents" contenteditable="true">' + item.date + '</div>\n        <div class="contents" contenteditable="true">' + item.description + '</div>\n      </div>';
+	  } else {
+	    return '<div data-item=' + item.id + ' class="item">\n        <div class="contents">' + item.title + '</div>\n        <div class="contents">' + item.date + '</div>\n        <div class="contents">' + item.description + '</div>\n      </div>';
+	  }
+	}
+
+	// Adds new events
+	var addPostHandlers = function addPostHandlers() {
+
+	  $("#form").on('submit', function (e) {
+	    e.preventDefault();
+	    var item = {
+	      title: $('#title').val(),
+	      date: $('#date').val(),
+	      description: $('#description').val()
+	    };
+	    api.submitPost({
+	      post: item
+	    }).then(function (data) {
+	      $(".side-content-right").append(translate(data, true));
+	    });
+	  });
+
+	  // Removes events created by specific user
+	  $(document).on("click", '.glyphicon-remove', function () {
+	    var item = $(this).parent().parent();
+	    api.deletePost(item.attr('data-item'));
+	    item.remove();
+	  });
+
+	  $(document).on('keyup', '.item', function (e) {
+	    console.log(e.target);
+	  });
+	};
+
+	// Create html string from array of items
+	function getItemsAndFill() {
+	  api.getAllPosts().then(function (items) {
+	    var str = "";
+	    items.forEach(function (item) {
+	      return str = str + translate(item);
+	    });
+	    $('.side-content-right').html(str);
+	  });
+	}
+
+	module.exports = {
+	  addPostHandlers: addPostHandlers,
+	  getItemsAndFill: getItemsAndFill
+	};
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var addFormField = function addFormField(target, names, value) {
+	  var name = names.shift();
+	  var next = names[0];
+	  if (next === '') {
+	    // name is an array
+	    target[name] = target[name] || [];
+	    target[name].push(value);
+	  } else if (next) {
+	    // name is a parent key
+	    target[name] = target[name] || {};
+	    addFormField(target[name], names, value);
+	  } else {
+	    // name is the key for value
+	    target[name] = value;
+	  }
+
+	  return target;
+	};
+
+	var getFormFields = function getFormFields(form) {
+	  var target = {};
+
+	  var elements = form.elements || [];
+	  for (var i = 0; i < elements.length; i++) {
+	    var e = elements[i];
+	    if (!e.hasAttribute('name')) {
+	      continue;
+	    }
+
+	    var type = 'TEXT';
+	    switch (e.nodeName.toUpperCase()) {
+	      case 'SELECT':
+	        type = e.hasAttribute('multiple') ? 'MULTIPLE' : type;
+	        break;
+	      case 'INPUT':
+	        type = e.getAttribute('type').toUpperCase();
+	        break;
+	    }
+
+	    var names = e.getAttribute('name').split('[').map(function (k) {
+	      return k.replace(/]$/, '');
+	    });
+
+	    if (type === 'MULTIPLE') {
+	      for (var _i = 0; _i < e.length; _i++) {
+	        if (e[_i].selected) {
+	          addFormField(target, names.slice(), e[_i].value);
+	        }
+	      }
+	    } else if (type !== 'RADIO' && type !== 'CHECKBOX' || e.checked) {
+	      addFormField(target, names, e.value);
+	    }
+	  }
+
+	  return target;
+	};
+
+	module.exports = getFormFields;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(4);
+	var content = __webpack_require__(11);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(6)(content, {});
+	var update = __webpack_require__(13)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -63,21 +461,21 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 4 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(5)();
+	exports = module.exports = __webpack_require__(12)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\n  background: tomato;\n  max-width: 100%;\n  margin: 0 auto; }\n\n.header {\n  background: rgba(255, 255, 255, 0.8);\n  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);\n  position: fixed;\n  width: 100%;\n  margin-left: -15px; }\n\nh1 {\n  font-family: 'Bangers', cursive;\n  text-align: center;\n  color: black;\n  font-size: 50px; }\n\n.dropdown {\n  float: left;\n  margin-top: -52px;\n  margin-left: 50px; }\n\n.dropdown-menu {\n  border-radius: 0px;\n  box-shadow: none;\n  border: none;\n  min-width: 200px;\n  top: 28px;\n  background-color: #000; }\n\n.dropdown-menu li {\n  font-size: 20px;\n  font-family: 'Bangers', cursive;\n  margin-left: 0;\n  float: none; }\n\n.dropdown-menu li a {\n  color: #fff;\n  padding: 5px 0;\n  text-align: center; }\n\n.dropdown-menu li a:hover {\n  background: rgba(255, 255, 255, 0.8);\n  color: #000; }\n\n.side-content {\n  margin-top: 150px;\n  max-width: 400px;\n  height: 500px;\n  background: rgba(255, 255, 255, 0.8); }\n\n.form-info {\n  text-align: center;\n  font-family: 'Bangers', cursive;\n  padding-top: 1px; }\n\n.btn {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: 22px;\n  padding: 10px;\n  font-size: 20px; }\n\n.footer {\n  background: rgba(255, 255, 255, 0.8);\n  width: 100%;\n  position: absolute;\n  bottom: 0px;\n  margin-left: -15px;\n  text-align: center;\n  padding: 10px;\n  font-family: 'Bangers', cursive; }\n\np {\n  margin: 7px; }\n\n.group-input-one {\n  margin: 20px 20px 20px 20px;\n  padding: 20px;\n  width: 358px;\n  font-family: 'Bangers', cursive;\n  font-size: 20px; }\n\n.group-input {\n  margin: 20px 20px;\n  padding: 20px;\n  width: 358px;\n  font-family: 'Bangers', cursive;\n  font-size: 20px; }\n\n.group-input-one:focus {\n  outline: none; }\n\n.group-input:focus {\n  outline: none; }\n", ""]);
+	exports.push([module.id, "body {\n  background: tomato;\n  max-width: 100%;\n  margin: 0 auto; }\n\n.header {\n  background: rgba(255, 255, 255, 0.8);\n  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);\n  position: fixed;\n  width: 100%;\n  margin-left: -15px; }\n\nh1 {\n  font-family: 'Bangers', cursive;\n  text-align: center;\n  color: black;\n  font-size: 50px; }\n\n.dropdown {\n  float: left;\n  margin-top: -52px;\n  margin-left: 50px; }\n\n.dropdown-menu {\n  border-radius: 0px;\n  box-shadow: none;\n  border: none;\n  min-width: 200px;\n  top: 28px;\n  background-color: #000; }\n\n.dropdown-menu li {\n  font-size: 20px;\n  font-family: 'Bangers', cursive;\n  margin-left: 0;\n  float: none; }\n\n.dropdown-menu li a {\n  color: #fff;\n  padding: 5px 0;\n  text-align: center;\n  cursor: pointer; }\n\n.dropdown-menu li a:hover {\n  background: rgba(255, 255, 255, 0.8);\n  color: #000; }\n\n.main {\n  display: flex; }\n\n.side-content {\n  margin-top: 150px;\n  max-width: 400px;\n  height: 500px;\n  background: rgba(255, 255, 255, 0.8); }\n\n.form-info {\n  text-align: center;\n  font-family: 'Bangers', cursive;\n  padding-top: 1px; }\n\n.btn {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: 22px;\n  padding: 8px;\n  font-size: 20px;\n  cursor: pointer; }\n\n.footer {\n  background: rgba(255, 255, 255, 0.8);\n  width: 100%;\n  position: absolute;\n  bottom: 0px;\n  margin-left: -15px;\n  text-align: center;\n  padding: 10px;\n  font-family: 'Bangers', cursive; }\n\np {\n  margin: 7px; }\n\n.group-input-one {\n  margin: 20px 20px 20px 20px;\n  padding: 20px;\n  width: 358px;\n  font-family: 'Bangers', cursive;\n  font-size: 20px; }\n\n.group-input {\n  margin: 20px 20px;\n  padding: 20px;\n  width: 358px;\n  font-family: 'Bangers', cursive;\n  font-size: 20px; }\n\n.group-input-one:focus {\n  outline: none; }\n\n.group-input:focus {\n  outline: none; }\n\n.side-content-right {\n  margin-top: 150px;\n  margin-left: 40px;\n  width: 970px;\n  height: 500px;\n  background: rgba(255, 255, 255, 0.8);\n  float: right;\n  overflow: auto;\n  padding: 19px; }\n\n.contents {\n  font-family: 'Bangers', cursive;\n  padding: 10px;\n  font-size: 30px;\n  color: white;\n  text-align: center; }\n\n.item {\n  float: left;\n  background: rgba(0, 0, 0, 0.8);\n  margin: 10px; }\n\n.sign-up {\n  display: none;\n  height: 200px;\n  width: 200px;\n  margin: 200px auto; }\n\n.input {\n  margin-top: 20px;\n  padding: 20px;\n  width: 400px;\n  background: rgba(255, 255, 255, 0.8);\n  font-size: 20px;\n  font-family: 'Bangers', cursive; }\n\n.input:focus {\n  outline: none; }\n\n#sign-up {\n  margin-left: -95px; }\n\n#sign-in {\n  margin-left: -95px; }\n\n#change-password {\n  margin-left: -95px; }\n\n.btn-one {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -106px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.btn-two {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -106px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.btn-three {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -106px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.header-sign-up {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.sign-in {\n  display: none;\n  height: 200px;\n  width: 200px;\n  margin: 200px auto; }\n\n.header-sign-in {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.change-password {\n  display: none;\n  height: 200px;\n  width: 200px;\n  margin: 140px auto; }\n\n.header-change-password {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.sign-out {\n  font-family: 'Bangers', cursive;\n  display: none;\n  height: 200px;\n  width: 400px;\n  margin: 140px auto;\n  text-align: center; }\n\n.glyphicon {\n  color: white;\n  float: right;\n  margin: 9px; }\n\n.item {\n  max-width: 31.1%; }\n\n.contents {\n  outline: none;\n  cursor: pointer; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 5 */
+/* 12 */
 /***/ function(module, exports) {
 
 	/*
@@ -133,7 +531,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 6 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -385,14 +783,14 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 7 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["$"] = __webpack_require__(2);
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 8 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {module.exports = global["jQuery"] = __webpack_require__(2);
