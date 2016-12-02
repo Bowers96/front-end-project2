@@ -1,3 +1,3 @@
 module.exports = {
-  host: "http://localhost:4741"
+  host: "https://cryptic-hollows-32556.herokuapp.com"
 }

@@ -1,6 +1,6 @@
 'use strict'
 
-const api = require('./api')
+const api = require('./api');
 const app = require('../app');
 
 
@@ -10,15 +10,15 @@ function translate(item, creating) {
   if (app.user.id === item.user_id || creating) {
     return `<div data-item=${item.id} class="item">
       <div><i class='glyphicon glyphicon-remove'></i></div>
-        <div class="contents" contenteditable="true">${item.title}</div>
-        <div class="contents" contenteditable="true">${item.date}</div>
-        <div class="contents" contenteditable="true">${item.description}</div>
+        <div class="contents title" contenteditable="true">${item.title}</div>
+        <div class="contents date" contenteditable="true">${item.date}</div>
+        <div class="contents description" contenteditable="true">${item.description}</div>
       </div>`
   } else {
     return `<div data-item=${item.id} class="item">
-        <div class="contents">${item.title}</div>
-        <div class="contents">${item.date}</div>
-        <div class="contents">${item.description}</div>
+        <div class="contents title">${item.title}</div>
+        <div class="contents date">${item.date}</div>
+        <div class="contents description">${item.description}</div>
       </div>`
   }
 
@@ -49,8 +49,22 @@ const addPostHandlers = function() {
     item.remove()
   });
 
-  $(document).on('keyup', '.item', (e) => {
-    console.log(e.target)
+  // Allows user to update event posts
+  $(document).on('keypress', '.item', (e) => {
+    if (e.which === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      let item = $(e.target).parent()
+      let post = {
+        title: item.find('.title').text(),
+        date: item.find('.date').text(),
+        description: item.find('.description').text()
+      }
+      api.updatePost(item.attr('data-item'), {
+        post
+      })
+    }
   });
 }
 
@@ -58,8 +72,10 @@ const addPostHandlers = function() {
 function getItemsAndFill() {
   api.getAllPosts().then(items => {
     let str = "";
-    items.forEach(item => str = str + translate(item));
-    $('.side-content-right').html(str);
+    if (items[0]) {
+      items.forEach(item => str = str + translate(item));
+      $('.side-content-right').html(str);
+    }
   })
 }
 

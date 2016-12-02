@@ -21,7 +21,7 @@ const submitPost = function(data) {
   });
 };
 
-const updatePost = function(data) {
+const updatePost = function(id, data) {
   return $.ajax({
     method: 'PATCH',
     url: app.host + '/posts/' + id,
