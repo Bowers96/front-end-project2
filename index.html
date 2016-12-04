@@ -32,7 +32,7 @@
 
       <div class="main frame">
         <div class="side-content">
-          <div class="form-info">
+          <div class="col-header">
             <h3>Make a new EVENTZ!</h3>
             <p>Have a cool eventz? Make a eventz post for upcoming events you
               want to let pople know about</p>
@@ -41,13 +41,21 @@
           <form id="form">
             <input class="group-input-one" id="title" type="text" name="group-title" placeholder="Title"><br>
             <input class="group-input" id="date" type="text" name="group-date" placeholder="Date"><br>
-            <input class="group-input" id="description" type="text" name="group-event" placeholder="Short description of event"><br>
+            <textarea class="group-input" id="description" type="text" name="group-event" placeholder="Short description of event"></textarea><br>
             <button class="btn" type="submit"><i>+</i></button>
           </form>
         </div>
 
-        <div class="side-content-right">
+        <div class="right-col">
+          <div class="col-header">
+            <h3>Make a new EVENTZ!</h3>
+            <p>Have a cool eventz? Make a eventz post for upcoming events you
+              want to let pople know about</p>
+          </div>
 
+          <div class="side-content-right">
+
+          </div>
         </div>
       </div>
 
@@ -57,8 +65,8 @@
 
         <form id="sign-up">
           <input class="input" type="text" name="credentials[email]" placeholder="email"><br>
-          <input class="input" type="text" name="credentials[password]" placeholder="password"><br>
-          <input class="input" type="text" name="credentials[password_confirmation]" placeholder="confirm password"><br>
+          <input class="input" type="password" name="credentials[password]" placeholder="password"><br>
+          <input class="input" type="password" name="credentials[password_confirmation]" placeholder="confirm password"><br>
           <button type="submit" class="btn-one" href="#"><i>+</i></button>
         </form>
       </div>
@@ -69,7 +77,7 @@
 
         <form id="sign-in">
           <input class="input" type="text" name="credentials[email]" placeholder="email"><br>
-          <input class="input" type="text" name="credentials[password]" placeholder="password"><br>
+          <input class="input" type="password" name="credentials[password]" placeholder="password"><br>
           <button type="submit" class="btn-two" href="#"><i>+</i></button>
         </form>
       </div>
@@ -81,8 +89,8 @@
           do it on EVENTZ!</h3>
 
         <form id="change-password">
-          <input class="input" type="text" name="passwords[old]" placeholder="old password"><br>
-          <input class="input" type="text" name="passwords[new]" placeholder="new password"><br>
+          <input class="input" type="password" name="passwords[old]" placeholder="old password"><br>
+          <input class="input" type="password" name="passwords[new]" placeholder="new password"><br>
           <button type="submit" class="btn-three" href="#"><i>+</i></button>
         </form>
       </div>
