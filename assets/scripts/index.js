@@ -9,7 +9,6 @@ const {
   addPostHandlers
 } = require('./posts/events')
 
-
 let main = function() {
   $('img').click(function() {
     $('.dropdown-menu').slideToggle();
@@ -54,6 +53,10 @@ $("#auth-four").click(function() {
   $('.frame').hide();
   $('.sign-out').show();
   $('.dropdown-menu').hide();
+});
+
+$(document).on("click", '.glyphicon-remove', function() {
+  $(this).parent().parent().remove();
 });
 
 
