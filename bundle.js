@@ -76,6 +76,10 @@ webpackJsonp([0],[
 	  $('.dropdown-menu').hide();
 	});
 
+	$(document).on("click", '.glyphicon-remove', function () {
+	  $(this).parent().parent().remove();
+	});
+
 	$(document).ready(main);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
@@ -106,7 +110,7 @@ webpackJsonp([0],[
 	  });
 	};
 
-	var updatePost = function updatePost(data) {
+	var updatePost = function updatePost(id, data) {
 	  return $.ajax({
 	    method: 'PATCH',
 	    url: app.host + '/posts/' + id,
@@ -142,7 +146,7 @@ webpackJsonp([0],[
 	"use strict";
 
 	module.exports = {
-	  host: "http://localhost:4741"
+	  host: "https://cryptic-hollows-32556.herokuapp.com"
 	};
 
 /***/ },
@@ -204,7 +208,7 @@ webpackJsonp([0],[
 	//authApi.signUp(authUi.success, authUi.failure, data);
 
 	var signUp = function signUp(data) {
-	  console.log(data);
+
 	  return $.ajax({
 	    url: app.host + '/sign-up/',
 	    method: 'POST',
@@ -213,7 +217,7 @@ webpackJsonp([0],[
 	};
 
 	var signIn = function signIn(data) {
-	  console.log(data);
+
 	  return $.ajax({
 	    url: app.host + '/sign-in/',
 	    method: 'POST',
@@ -263,7 +267,7 @@ webpackJsonp([0],[
 	//remove me before code-along
 	var signInSuccess = function signInSuccess(data) {
 	  app.user = data.user;
-	  console.log(app);
+
 	  postsEvents.getItemsAndFill();
 	};
 
@@ -271,21 +275,15 @@ webpackJsonp([0],[
 	var signOutSuccess = function signOutSuccess() {
 	  app.user = null;
 	  showSignoutMessage();
-	  console.log(app);
 	};
 
-	var changePasswordSuccess = function changePasswordSuccess() {
-	  console.log("Password Successfully Changed.");
-	};
+	var changePasswordSuccess = function changePasswordSuccess() {};
 
 	var success = function success(data) {
 	  app.user = data.user;
-	  console.log(data);
 	};
 
-	var failure = function failure(error) {
-	  console.error(error);
-	};
+	var failure = function failure(error) {};
 
 	var showSignoutMessage = function showSignoutMessage() {
 	  $('.signout-message').fadeIn();
@@ -317,9 +315,9 @@ webpackJsonp([0],[
 	// Takes raw database items and returns HTML string
 	function translate(item, creating) {
 	  if (app.user.id === item.user_id || creating) {
-	    return '<div data-item=' + item.id + ' class="item">\n      <div><i class=\'glyphicon glyphicon-remove\'></i></div>\n        <div class="contents" contenteditable="true">' + item.title + '</div>\n        <div class="contents" contenteditable="true">' + item.date + '</div>\n        <div class="contents" contenteditable="true">' + item.description + '</div>\n      </div>';
+	    return '<div data-item=' + item.id + ' class="item">\n      <div><i class=\'glyphicon glyphicon-remove\'></i></div>\n        <div class="contents title" contenteditable="true">' + item.title + '</div>\n        <div class="contents date" contenteditable="true">' + item.date + '</div>\n        <div class="contents description" contenteditable="true">' + item.description + '</div>\n      </div>';
 	  } else {
-	    return '<div data-item=' + item.id + ' class="item">\n        <div class="contents">' + item.title + '</div>\n        <div class="contents">' + item.date + '</div>\n        <div class="contents">' + item.description + '</div>\n      </div>';
+	    return '<div data-item=' + item.id + ' class="item">\n        <div class="contents title">' + item.title + '</div>\n        <div class="contents date">' + item.date + '</div>\n        <div class="contents description">' + item.description + '</div>\n      </div>';
 	  }
 	}
 
@@ -347,8 +345,22 @@ webpackJsonp([0],[
 	    item.remove();
 	  });
 
-	  $(document).on('keyup', '.item', function (e) {
-	    console.log(e.target);
+	  // Allows user to update event posts
+	  $(document).on('keypress', '.item', function (e) {
+	    if (e.which === 13) {
+	      e.preventDefault();
+	      e.stopPropagation();
+
+	      var item = $(e.target).parent();
+	      var post = {
+	        title: item.find('.title').text(),
+	        date: item.find('.date').text(),
+	        description: item.find('.description').text()
+	      };
+	      api.updatePost(item.attr('data-item'), {
+	        post: post
+	      });
+	    }
 	  });
 	};
 
@@ -356,10 +368,12 @@ webpackJsonp([0],[
 	function getItemsAndFill() {
 	  api.getAllPosts().then(function (items) {
 	    var str = "";
-	    items.forEach(function (item) {
-	      return str = str + translate(item);
-	    });
-	    $('.side-content-right').html(str);
+	    if (items[0]) {
+	      items.forEach(function (item) {
+	        return str = str + translate(item);
+	      });
+	      $('.side-content-right').html(str);
+	    }
 	  });
 	}
 
@@ -469,7 +483,7 @@ webpackJsonp([0],[
 
 
 	// module
-	exports.push([module.id, "body {\n  background: tomato;\n  max-width: 100%;\n  margin: 0 auto; }\n\n.header {\n  background: rgba(255, 255, 255, 0.8);\n  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);\n  position: fixed;\n  width: 100%;\n  margin-left: -15px; }\n\nh1 {\n  font-family: 'Bangers', cursive;\n  text-align: center;\n  color: black;\n  font-size: 50px; }\n\n.dropdown {\n  float: left;\n  margin-top: -52px;\n  margin-left: 50px; }\n\n.dropdown-menu {\n  border-radius: 0px;\n  box-shadow: none;\n  border: none;\n  min-width: 200px;\n  top: 28px;\n  background-color: #000; }\n\n.dropdown-menu li {\n  font-size: 20px;\n  font-family: 'Bangers', cursive;\n  margin-left: 0;\n  float: none; }\n\n.dropdown-menu li a {\n  color: #fff;\n  padding: 5px 0;\n  text-align: center;\n  cursor: pointer; }\n\n.dropdown-menu li a:hover {\n  background: rgba(255, 255, 255, 0.8);\n  color: #000; }\n\n.main {\n  display: flex; }\n\n.side-content {\n  margin-top: 150px;\n  max-width: 400px;\n  height: 500px;\n  background: rgba(255, 255, 255, 0.8); }\n\n.form-info {\n  text-align: center;\n  font-family: 'Bangers', cursive;\n  padding-top: 1px; }\n\n.btn {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: 22px;\n  padding: 8px;\n  font-size: 20px;\n  cursor: pointer; }\n\n.footer {\n  background: rgba(255, 255, 255, 0.8);\n  width: 100%;\n  position: absolute;\n  bottom: 0px;\n  margin-left: -15px;\n  text-align: center;\n  padding: 10px;\n  font-family: 'Bangers', cursive; }\n\np {\n  margin: 7px; }\n\n.group-input-one {\n  margin: 20px 20px 20px 20px;\n  padding: 20px;\n  width: 358px;\n  font-family: 'Bangers', cursive;\n  font-size: 20px; }\n\n.group-input {\n  margin: 20px 20px;\n  padding: 20px;\n  width: 358px;\n  font-family: 'Bangers', cursive;\n  font-size: 20px; }\n\n.group-input-one:focus {\n  outline: none; }\n\n.group-input:focus {\n  outline: none; }\n\n.side-content-right {\n  margin-top: 150px;\n  margin-left: 40px;\n  width: 970px;\n  height: 500px;\n  background: rgba(255, 255, 255, 0.8);\n  float: right;\n  overflow: auto;\n  padding: 19px; }\n\n.contents {\n  font-family: 'Bangers', cursive;\n  padding: 10px;\n  font-size: 30px;\n  color: white;\n  text-align: center; }\n\n.item {\n  float: left;\n  background: rgba(0, 0, 0, 0.8);\n  margin: 10px; }\n\n.sign-up {\n  display: none;\n  height: 200px;\n  width: 200px;\n  margin: 200px auto; }\n\n.input {\n  margin-top: 20px;\n  padding: 20px;\n  width: 400px;\n  background: rgba(255, 255, 255, 0.8);\n  font-size: 20px;\n  font-family: 'Bangers', cursive; }\n\n.input:focus {\n  outline: none; }\n\n#sign-up {\n  margin-left: -95px; }\n\n#sign-in {\n  margin-left: -95px; }\n\n#change-password {\n  margin-left: -95px; }\n\n.btn-one {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -106px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.btn-two {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -106px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.btn-three {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -106px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.header-sign-up {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.sign-in {\n  display: none;\n  height: 200px;\n  width: 200px;\n  margin: 200px auto; }\n\n.header-sign-in {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.change-password {\n  display: none;\n  height: 200px;\n  width: 200px;\n  margin: 140px auto; }\n\n.header-change-password {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.sign-out {\n  font-family: 'Bangers', cursive;\n  display: none;\n  height: 200px;\n  width: 400px;\n  margin: 140px auto;\n  text-align: center; }\n\n.glyphicon {\n  color: white;\n  float: right;\n  margin: 9px; }\n\n.item {\n  max-width: 31.1%; }\n\n.contents {\n  outline: none;\n  cursor: pointer; }\n", ""]);
+	exports.push([module.id, "body {\n  background: tomato;\n  max-width: 100%;\n  margin: 0 auto; }\n\n.header {\n  background: rgba(255, 255, 255, 0.8);\n  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);\n  position: fixed;\n  width: 100%;\n  margin-left: -15px; }\n\nh1 {\n  font-family: 'Bangers', cursive;\n  text-align: center;\n  color: black;\n  font-size: 50px; }\n\nh3 {\n  font-size: 35px; }\n\np {\n  font-size: 15px; }\n\n.dropdown {\n  float: left;\n  margin-top: -52px;\n  margin-left: 50px; }\n\n.dropdown-menu {\n  border-radius: 0px;\n  box-shadow: none;\n  border: none;\n  min-width: 200px;\n  top: 28px;\n  background-color: #000; }\n\n.dropdown-menu li {\n  font-size: 20px;\n  font-family: 'Bangers', cursive;\n  margin-left: 0;\n  float: none; }\n\n.dropdown-menu li a {\n  color: #fff;\n  padding: 5px 0;\n  text-align: center;\n  cursor: pointer; }\n\n.dropdown-menu li a:hover {\n  background: rgba(255, 255, 255, 0.8);\n  color: #000; }\n\n.side-content {\n  margin-top: 129px;\n  width: 100%;\n  height: 500px;\n  background: rgba(255, 255, 255, 0.8);\n  border: 5px solid black; }\n\n.col-header {\n  text-align: center;\n  font-family: 'Bangers', cursive;\n  padding-top: 1px;\n  background-color: black;\n  color: tomato;\n  padding: 10px; }\n  .col-header p, .col-header h3 {\n    margin: 0; }\n\n.btn {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin: 15px 22px 0 0;\n  padding: 8px;\n  font-size: 20px;\n  cursor: pointer; }\n\n.footer {\n  background: rgba(255, 255, 255, 0.8);\n  width: 100%;\n  position: fixed;\n  bottom: 0px;\n  margin-left: -15px;\n  text-align: center;\n  padding: 10px;\n  font-family: 'Bangers', cursive; }\n\np {\n  margin: 7px; }\n\n.group-input-one {\n  width: 94%;\n  margin: 10px 3% 0;\n  padding: 20px;\n  font-family: 'Bangers', cursive;\n  font-size: 20px; }\n\n.group-input {\n  width: 94%;\n  margin: 20px 3% 0;\n  padding: 20px;\n  font-family: 'Bangers', cursive;\n  font-size: 20px; }\n\n.group-input-one:focus {\n  outline: none; }\n\n.group-input:focus {\n  outline: none; }\n\n.right-col {\n  width: 100%;\n  margin-top: 129px;\n  margin-left: 40px;\n  height: 500px;\n  border: 5px solid black;\n  float: right;\n  overflow: auto; }\n\n.side-content-right {\n  width: 100%;\n  height: 425px;\n  background: rgba(255, 255, 255, 0.8);\n  float: right;\n  overflow: auto; }\n\n.contents {\n  font-family: 'Bangers', cursive;\n  padding: 10px;\n  font-size: 30px;\n  color: white;\n  text-align: center; }\n\n.item {\n  float: left;\n  background: rgba(0, 0, 0, 0.8);\n  margin: 10px; }\n\n.sign-up {\n  display: none;\n  height: 200px;\n  width: 200px;\n  margin: 147px auto; }\n\n.input {\n  margin-top: 20px;\n  padding: 20px;\n  width: 400px;\n  background: rgba(255, 255, 255, 0.8);\n  font-size: 20px;\n  font-family: 'Bangers', cursive; }\n\n.input:focus {\n  outline: none; }\n\ntextarea {\n  border: 1px solid lightgrey; }\n\n#sign-up {\n  margin-left: -95px; }\n\n#sign-in {\n  margin-left: -95px; }\n\n#change-password {\n  margin-left: -54px; }\n\n.btn-one {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -106px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.btn-two {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -106px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.btn-three {\n  background: black;\n  color: white;\n  display: block;\n  height: 50px;\n  width: 50px;\n  border-radius: 50%;\n  float: right;\n  margin-right: -50px;\n  margin-top: 10px;\n  padding: 13px 20px;\n  cursor: pointer; }\n\n.header-sign-up {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.sign-in {\n  display: none;\n  height: 200px;\n  width: 200px;\n  margin: 200px auto; }\n\n.header-sign-in {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.change-password {\n  display: none;\n  width: 296px;\n  margin: 113px auto; }\n\n.header-change-password {\n  font-family: 'Bangers', cursive;\n  text-align: center; }\n\n.sign-out {\n  font-family: 'Bangers', cursive;\n  display: none;\n  height: 200px;\n  width: 400px;\n  margin: 140px auto;\n  text-align: center; }\n\n.glyphicon {\n  color: white;\n  float: right;\n  margin: 9px; }\n\n.item {\n  max-width: 31.1%; }\n\n.contents {\n  outline: none;\n  cursor: pointer; }\n\n@media (min-width: 650px) {\n  .right-col {\n    width: calc(100% - 340px); }\n  .side-content {\n    width: 300px;\n    float: left; } }\n", ""]);
 
 	// exports
 
