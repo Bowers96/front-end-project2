@@ -6,7 +6,7 @@ window.app = app;
 //remove me before code-along
 const signInSuccess = (data) => {
   app.user = data.user;
-  console.log(app);
+
   postsEvents.getItemsAndFill()
 };
 
@@ -14,20 +14,20 @@ const signInSuccess = (data) => {
 const signOutSuccess = () => {
   app.user = null;
   showSignoutMessage();
-  console.log(app);
+
 };
 
 const changePasswordSuccess = () => {
-  console.log("Password Successfully Changed.");
+
 };
 
 const success = (data) => {
   app.user = data.user;
-  console.log(data);
+
 };
 
 const failure = (error) => {
-  console.error(error);
+
 };
 
 const showSignoutMessage = () => {
